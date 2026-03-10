@@ -16,13 +16,14 @@
 # --- 1) Imposta l'email usata da Git per i commit (metti la TUA email) ---
 system('git config --global user.email "rita.antonacci@student.univaq.it"')
 
+system('git config --replace-all user.email "rita.antonacci@student.univaq.it"')
 # --- 2) Imposta il nome usato da Git per i commit (metti il TUO nome e cognome) ---
 system('git config --global user.name "RitaAntonacci"')
 
 # --- 3) Controlla che Git abbia salvato le impostazioni globali ---
 # (stampa la lista delle configurazioni globali; cerca user.name e user.email)
 system("git config --global --list")
-
+system("git config --local -l")
 
 # ============================================================
 # Windows users (solo se i comandi sopra NON funzionano)
@@ -59,3 +60,6 @@ usethis::create_github_token()
 # (quando chiede "Enter password or token:", incolla il token e premi invio)
 gitcreds::gitcreds_set()
 
+system("git remote add origin https://github.com/ritaant1/DataManagement2026.git")
+
+system("git remote -v")
