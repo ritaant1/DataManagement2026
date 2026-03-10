@@ -138,7 +138,7 @@ system("git add script_analisi.R")
 # Il commit crea una nuova versione salvata del progetto
 # Il messaggio deve spiegare cosa è stato modificato
 
-system('git commit -m "Added exploratory analysis script"')
+system('git commit -m "nomescript.R"')
 
 
 ### 4) INVIARE LE MODIFICHE SU GITHUB -----------------------
