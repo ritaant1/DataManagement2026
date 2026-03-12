@@ -48,7 +48,7 @@ iris |>
 
 # PIPE DEL TIDYVERSE / magrittr
 # Simbolo: %>%
-
+### commit github
 iris %>%
   head()
 
