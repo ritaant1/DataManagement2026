@@ -6,18 +6,22 @@
 ### 1) CARICARE I PACCHETTI ----------------------------------
 
 # dplyr contiene molte funzioni base del tidyverse per manipolare dati
+#install.packages("tidyverse")  # installa tutto il tidyverse 
 library(tidyverse)
-
+library(dplyr)
 
 ### 2) DATASET DI PARTENZA -----------------------------------
 
 # Usiamo iris, già presente in R
 data(iris)
-write.csv(iris, "data/iris.csv", row.names = FALSE)
-rm(iris)  # rimuoviamo iris per poi ricaricarlo con read_cs
-iris <- read_csv("data/iris.csv")
+dir.create("data")  # creiamo una cartella "data" per salvare i dati"
+#write.csv(iris, "data/iris.csv", row.names = FALSE) ##occhio a write perchè sovrascrive quindi dopo avrla lanciata la commentiamo
+rm(iris)  # rimuoviamo iris per poi ricaricarlo con read_csv
+#gc()  # puliamo la memoria cioè l'environment
+iris <- read.csv("data/iris.csv")
 
 # Guardiamo il dataset
+view(iris) #se il file non è troppo pesante 
 head(iris)
 str(iris)
 
@@ -90,15 +94,20 @@ iris %>%
 iris %>%
   select(specie = Species, petalo = Petal.Length)
 
+iris |> 
+  select(Species,everything())
 
 ### 6) FILTER(): FILTRARE LE RIGHE ---------------------------
 
 # filter() serve a tenere solo le righe che rispettano una condizione
-
+#vietato selezionare le righe con gli indici posizionali 
 # Solo Setosa
 iris %>%
-  filter(Species == "setosa")
+  filter(Species == "setosa") #ricorda i due uguali, uno solo è per l'assegnazione 
 
+iris[iris$Species =="setosa",] #con R base 
+
+#OPERATORI LOGICI
 # Petali lunghi
 iris %>%
   filter(Petal.Length > 5)
@@ -115,8 +124,12 @@ iris %>%
 iris %>%
   filter(Species == "setosa" | Species == "versicolor")
 
+iris |> 
+  filter(Species == "setosa" | Species == "versicolor") |> #seleziono solo le specie di interesse 
+  filter(Petal.Length > 1.5) #seleziono i petali più lunghi di 1.5
+
 # Posso combinare filter() e select()
-iris %>%
+iris_mod <- iris %>%
   filter(Petal.Length > 5) %>%
   select(Species, Petal.Length, Petal.Width)
 
@@ -165,12 +178,12 @@ iris %>%
   select(-Species)
 
 
-library(dplyr)
+
 library(palmerpenguins)
 
 # Per vedere bene le variabili disponibili
-glimpse(penguins)
-
+glimpse(penguins) #analogo di str() ma più leggibile per i data frame del tidyverse
+data(penguins)
 
 ############################################################
 # ESERCIZI
@@ -179,31 +192,42 @@ glimpse(penguins)
 ### ESERCIZIO 1
 # Seleziona solo le colonne:
 # species, island, bill_length_mm, body_mass_g
-
+penguins |> 
+  select(species, island, bill_length_mm, body_mass_g)
 
 ### ESERCIZIO 2
 # Mostra solo i pinguini dell'isola Dream
 # e tieni solo le colonne species, island e sex
 
-
+penguins |> 
+  filter(island == "Dream") |> 
+  select(species,island,sex)
 ### ESERCIZIO 3
 # Mostra solo i pinguini con body_mass_g maggiore di 5000
 # e tieni solo species, island e body_mass_g
-
+penguins |> 
+  select(body_mass_g, species, island) |> 
+  filter(body_mass_g > 5000)
 
 ### ESERCIZIO 4
 # Mostra solo i pinguini della specie Adelie
 # che si trovano sull'isola Torgersen
-
+penguins |> 
+  filter(species == "Adelie", island == "Torgersen")
 
 ### ESERCIZIO 5
 # Mostra solo i pinguini che NON appartengono alla specie Adelie
 # e tieni solo species, bill_length_mm e bill_depth_mm
+penguins |> 
+  filter(species != "Adelie") |> # != è diverso da
+  select(species, bill_length_mm, bill_depth_mm) 
 
 
 ### ESERCIZIO 6
 # Mostra solo i pinguini con flipper_length_mm > 200
 # e body_mass_g < 5000
+penguins |> 
+  filter(flipper_length_mm > 200, body_mass_g < 5000)
 
 
 ### ESERCIZIO 7
@@ -258,4 +282,4 @@ glimpse(penguins)
 # - specie Gentoo e body_mass_g > 5500
 # OPPURE
 # - specie Adelie e flipper_length_mm < 190
-# poi tieni solo species, island, flipper_length_mm, body_mass_g
+# poi tieni solo species, island, flipper_length_mm, body_mass_g %>% 
