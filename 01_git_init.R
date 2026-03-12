@@ -81,4 +81,8 @@ system("git merge upstream/main")
 
 # Controllare lo stato del repository
 
-system("git status")
+system("git status")  
+#per risolvere il problema di unire due repository diverse 
+system("git merge upstream/main --allow-unrelated-histories") 
+
+
