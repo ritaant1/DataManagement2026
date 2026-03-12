@@ -50,7 +50,7 @@ system("git config --local -l")
 # Per fare push/pull su GitHub NON si usa più la password dell’account.
 # Si usa un Personal Access Token (PAT): una “password” generata da GitHub.
 # se non funziona installare prima i pacchetti usethis e gitcreds:
-# installa i pacchetti necessari (una sola volta)
+# installa i pacchetti necessari (una volta sola)
 # install.packages(c("usethis","gitcreds"))
 # --- 4) Apri nel browser la pagina di GitHub per creare un token ---
 # (ti si apre GitHub: crea un token, copialo subito perché poi non verrà mostrato di nuovo)
@@ -63,3 +63,22 @@ gitcreds::gitcreds_set()
 system("git remote add origin https://github.com/ritaant1/DataManagement2026.git")
 
 system("git remote -v")
+
+system("git remote add upstream https://github.com/micdimu/DataManCons.git")
+system("git remote -v")
+
+# --- 9)  Scaricare i contenuti dal repository del docente ---
+
+system("git fetch upstream")
+
+# Questo scarica i commit ma non modifica ancora i file
+
+# --- 10)  Unire i file docente con i propri ---
+
+system("git merge upstream/main")
+
+# Ora i file del corso sono presenti nella cartella locale
+
+# Controllare lo stato del repository
+
+system("git status")
