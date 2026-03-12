@@ -73,16 +73,16 @@ system("git fetch upstream")
 
 # Questo scarica i commit ma non modifica ancora i file
 
+
 # --- 10)  Unire i file docente con i propri ---
 
-system("git merge upstream/main")
+system("git merge upstream/main --allow-unrelated-histories")
 
 # Ora i file del corso sono presenti nella cartella locale
 
 # Controllare lo stato del repository
 
 system("git status")  
-#per risolvere il problema di unire due repository diverse 
-system("git merge upstream/main --allow-unrelated-histories") 
+
 
 
